@@ -296,28 +296,34 @@ input[type="radio"] {
   background-color: white;
   -webkit-appearance: none;
   -moz-appearance: none;
+  cursor: pointer;
 }
 
 input[type="radio"]:focus {
+  cursor: pointer;
   outline: none;
 }
 
 input[type="radio"]:checked {
   background-color: rgb(157, 173, 177);
+  cursor: pointer;
 }
 
 input[type="radio"]:checked ~ span:first-of-type {
   color: white;
+  cursor: pointer;
 }
 
 .label_filter span:first-of-type {
   position: relative;
   font-size: 18px;
+  cursor: pointer;
 }
 
 .label_filter span {
   position: relative;
   top: -28px;
+  cursor: pointer;
 }
 
 .label_sort span:first-of-type {
@@ -325,11 +331,13 @@ input[type="radio"]:checked ~ span:first-of-type {
   justify-content: center;
   position: relative;
   font-size: 18px;
+  cursor: pointer;
 }
 
 .label_sort span {
   position: relative;
   top: -27px;
+  cursor: pointer;
 }
 
 .filter_form {
