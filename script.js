@@ -20,7 +20,6 @@ const getUsersData = async (url) => {
     const response = await fetch(url);
     const data = await response.json();
     allUsers = [...data.results];
-    copyOfAllUsers = [...allUsers];
     displayAllUsers(allUsers);
   } catch (err) {
     console.log("Error");
@@ -61,82 +60,98 @@ const displayAllUsers = (usersArray) => {
 let rules = ["", false, false, false, false];
 
 let sortingRules = {
-  byGender: "all",
-  ageByDescending: false,
-  ageByIncreasing: false,
-  nameByDescending: false,
-  nameByIncreasing: false,
+  filterByGenderIsChoosed: "all",
+  ageByDescendingIsChecked: false,
+  ageByIncreasingIsChecked: false,
+  nameByDescendingIsChecked: false,
+  nameByIncreasingIsChecked: false,
 };
 
 const initializeUsers = (target) => {
+  copyOfAllUsers = [...allUsers];
+
   if (genderChoosenMale.checked) {
-    sortingRules.byGender = "male";
+    sortingRules.filterByGenderIsChoosed = "male";
   }
   if (genderChoosenFemale.checked) {
-    sortingRules.byGender = "female";
+    sortingRules.filterByGenderIsChoosed = "female";
   }
   if (genderChoosenAll.checked) {
-    sortingRules.byGender = "all";
+    sortingRules.filterByGenderIsChoosed = "all";
   }
   if (target.value === "0-9" && target.checked) {
-    sortingRules.ageByIncreasing = true;
-    sortingRules.ageByDescending = false;
+    sortingRules.ageByIncreasingIsChecked = true;
+    sortingRules.ageByDescendingIsChecked = false;
 
-    sortingRules.nameByIncreasing = false;
-    sortingRules.nameByDescending = false;
+    sortingRules.nameByIncreasingIsChecked = false;
+    sortingRules.nameByDescendingIsChecked = false;
   }
   if (target.value === "9-0" && target.checked) {
-    sortingRules.ageByDescending = true;
-    sortingRules.ageByIncreasing = false;
-    sortingRules.nameByIncreasing = false;
-    sortingRules.nameByDescending = false;
+    sortingRules.ageByDescendingIsChecked = true;
+    sortingRules.ageByIncreasingIsChecked = false;
+    sortingRules.nameByIncreasingIsChecked = false;
+    sortingRules.nameByDescendingIsChecked = false;
   }
   if (target.value === "A-z" && target.checked) {
-    sortingRules.nameByIncreasing = true;
-    sortingRules.nameByDescending = false;
-    sortingRules.ageByIncreasing = false;
-    sortingRules.ageByDescending = false;
+    sortingRules.nameByIncreasingIsChecked = true;
+    sortingRules.nameByDescendingIsChecked = false;
+    sortingRules.ageByIncreasingIsChecked = false;
+    sortingRules.ageByDescendingIsChecked = false;
   }
   if (target.value === "Z-a" && target.checked) {
-    sortingRules.nameByDescending = true;
-    sortingRules.nameByIncreasing = false;
-    sortingRules.ageByIncreasing = false;
-    sortingRules.ageByDescending = false;
+    sortingRules.nameByDescendingIsChecked = true;
+    sortingRules.nameByIncreasingIsChecked = false;
+    sortingRules.ageByIncreasingIsChecked = false;
+    sortingRules.ageByDescendingIsChecked = false;
   }
 
-  if (sortingRules.ageByIncreasing || sortingRules.ageByDescending) {
+  if (
+    sortingRules.ageByIncreasingIsChecked ||
+    sortingRules.ageByDescendingIsChecked
+  ) {
     displayAllUsers(
-      sortByAge(filterByGender(copyOfAllUsers, sortingRules), sortingRules)
-    );
-  } else if (sortingRules.nameByIncreasing || sortingRules.nameByDescending) {
-    displayAllUsers(
-      sortByAlphabets(
-        filterByGender(copyOfAllUsers, sortingRules),
+      sortByAge(
+        filterfilterByGenderIsChoosed(copyOfAllUsers, sortingRules),
         sortingRules
       )
     );
   } else if (
-    sortingRules.byGender === "all" ||
-    sortingRules.byGender === "male" ||
-    sortingRules.byGender === "female"
+    sortingRules.nameByIncreasingIsChecked ||
+    sortingRules.nameByDescendingIsChecked
   ) {
-    displayAllUsers(filterByGender(copyOfAllUsers, sortingRules));
+    displayAllUsers(
+      sortByAlphabets(
+        filterfilterByGenderIsChoosed(copyOfAllUsers, sortingRules),
+        sortingRules
+      )
+    );
+  } else if (
+    sortingRules.filterByGenderIsChoosed === "all" ||
+    sortingRules.filterByGenderIsChoosed === "male" ||
+    sortingRules.filterByGenderIsChoosed === "female"
+  ) {
+    displayAllUsers(
+      filterfilterByGenderIsChoosed(copyOfAllUsers, sortingRules)
+    );
   }
 };
 
-const filterByGender = (arrayOfUsers, sortingRules) => {
-  if (sortingRules.byGender === "male" || sortingRules.byGender === "female") {
+const filterfilterByGenderIsChoosed = (arrayOfUsers, sortingRules) => {
+  if (
+    sortingRules.filterByGenderIsChoosed === "male" ||
+    sortingRules.filterByGenderIsChoosed === "female"
+  ) {
     arrayOfUsers = arrayOfUsers.filter(
-      (user) => user.gender === sortingRules.byGender
+      (user) => user.gender === sortingRules.filterByGenderIsChoosed
     );
     return arrayOfUsers;
-  } else if (sortingRules.byGender === "all") {
+  } else if (sortingRules.filterByGenderIsChoosed === "all") {
     return arrayOfUsers;
   }
 };
 
 const sortByAge = (arrayOfUsers, sortingRules) => {
-  if (sortingRules.ageByIncreasing) {
+  if (sortingRules.ageByIncreasingIsChecked) {
     arrayOfUsers.sort((a, b) => a.dob.age - b.dob.age);
   } else {
     arrayOfUsers.sort((a, b) => b.dob.age - a.dob.age);
@@ -145,7 +160,7 @@ const sortByAge = (arrayOfUsers, sortingRules) => {
 };
 
 const sortByAlphabets = (arrayOfUsers, sortingRules) => {
-  if (sortingRules.nameByIncreasing) {
+  if (sortingRules.nameByIncreasingIsChecked) {
     arrayOfUsers.sort((a, b) => (a.name.first > b.name.first ? 1 : -1));
   } else {
     arrayOfUsers.sort((a, b) => (a.name.first > b.name.first ? -1 : 1));
@@ -173,11 +188,11 @@ allFilters.addEventListener("input", function (e) {
 resetBtn.addEventListener("click", function () {
   displayAllUsers(allUsers);
   sortingRules = {
-    byGender: "all",
-    ageByIncreasing: false,
-    ageByDescending: false,
-    nameByIncreasing: false,
-    nameByDescending: false,
+    filterByGenderIsChoosed: "all",
+    ageByIncreasingIsChecked: false,
+    ageByDescendingIsChecked: false,
+    nameByIncreasingIsChecked: false,
+    nameByDescendingIsChecked: false,
   };
   searchInput.value = "";
 });
