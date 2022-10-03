@@ -1,14 +1,7 @@
 const listOfUsers = document.querySelector(".users");
-
 const allFilters = document.querySelector(".main__filters");
-const resetBtn = document.querySelector(".resetBtn");
-
-const genderChoosenAll = document.querySelector('input[value="all"]');
-const genderChoosenMale = document.querySelector('input[value="male"]');
-const genderChoosenFemale = document.querySelector('input[value="female"]');
-
+const resetButton = document.querySelector(".resetBtn");
 const searchInput = document.querySelector('input[name="search"]');
-
 const usersURL =
   "https://randomuser.me/api/?results=16&nat=ua&inc=gender,name,location,picture,dob&seed=1 noinfo";
 
@@ -57,8 +50,6 @@ const displayAllUsers = (usersArray) => {
   });
 };
 
-let rules = ["", false, false, false, false];
-
 let sortingRules = {
   filterByGenderIsChoosed: "all",
   ageByDescendingIsChecked: false,
@@ -67,53 +58,85 @@ let sortingRules = {
   nameByIncreasingIsChecked: false,
 };
 
-const initializeUsers = (target) => {
+const defineSortingRules = (target) => {
+  switch (target.value) {
+    case "male":
+      sortingRules.filterByGenderIsChoosed = "male";
+      break;
+
+    case "female":
+      sortingRules.filterByGenderIsChoosed = "female";
+      break;
+
+    case "all":
+      sortingRules.filterByGenderIsChoosed = "all";
+      break;
+
+    case "0-9":
+      sortingRules.ageByIncreasingIsChecked = true;
+      sortingRules.ageByDescendingIsChecked = false;
+      sortingRules.nameByIncreasingIsChecked = false;
+      sortingRules.nameByDescendingIsChecked = false;
+      break;
+
+    case "9-0":
+      sortingRules.ageByDescendingIsChecked = true;
+      sortingRules.ageByIncreasingIsChecked = false;
+      sortingRules.nameByIncreasingIsChecked = false;
+      sortingRules.nameByDescendingIsChecked = false;
+      break;
+
+    case "A-z":
+      sortingRules.nameByIncreasingIsChecked = true;
+      sortingRules.nameByDescendingIsChecked = false;
+      sortingRules.ageByIncreasingIsChecked = false;
+      sortingRules.ageByDescendingIsChecked = false;
+      break;
+
+    case "Z-a":
+      sortingRules.nameByDescendingIsChecked = true;
+      sortingRules.nameByIncreasingIsChecked = false;
+      sortingRules.ageByIncreasingIsChecked = false;
+      sortingRules.ageByDescendingIsChecked = false;
+      break;
+  }
+};
+
+const dispalySortedUsers = function (target) {
   copyOfAllUsers = [...allUsers];
+  defineSortingRules(target);
 
-  if (genderChoosenMale.checked) {
-    sortingRules.filterByGenderIsChoosed = "male";
-  }
-  if (genderChoosenFemale.checked) {
-    sortingRules.filterByGenderIsChoosed = "female";
-  }
-  if (genderChoosenAll.checked) {
-    sortingRules.filterByGenderIsChoosed = "all";
-  }
-  if (target.value === "0-9" && target.checked) {
-    sortingRules.ageByIncreasingIsChecked = true;
-    sortingRules.ageByDescendingIsChecked = false;
-
-    sortingRules.nameByIncreasingIsChecked = false;
-    sortingRules.nameByDescendingIsChecked = false;
-  }
-  if (target.value === "9-0" && target.checked) {
-    sortingRules.ageByDescendingIsChecked = true;
-    sortingRules.ageByIncreasingIsChecked = false;
-    sortingRules.nameByIncreasingIsChecked = false;
-    sortingRules.nameByDescendingIsChecked = false;
-  }
-  if (target.value === "A-z" && target.checked) {
-    sortingRules.nameByIncreasingIsChecked = true;
-    sortingRules.nameByDescendingIsChecked = false;
-    sortingRules.ageByIncreasingIsChecked = false;
-    sortingRules.ageByDescendingIsChecked = false;
-  }
-  if (target.value === "Z-a" && target.checked) {
-    sortingRules.nameByDescendingIsChecked = true;
-    sortingRules.nameByIncreasingIsChecked = false;
-    sortingRules.ageByIncreasingIsChecked = false;
-    sortingRules.ageByDescendingIsChecked = false;
-  }
-
-  if (
+  if (searchInput.value !== "") {
+    const findUser = copyOfAllUsers.filter(
+      (user) =>
+        user.name.first
+          .toLowerCase()
+          .includes(searchInput.value.toLowerCase()) ||
+        user.name.last.toLowerCase().includes(searchInput.value.toLowerCase())
+    );
+    if (
+      sortingRules.ageByIncreasingIsChecked ||
+      sortingRules.ageByDescendingIsChecked
+    ) {
+      displayAllUsers(
+        sortByAge(filterByGender(findUser, sortingRules), sortingRules)
+      );
+    } else if (
+      sortingRules.nameByIncreasingIsChecked ||
+      sortingRules.nameByDescendingIsChecked
+    ) {
+      displayAllUsers(
+        sortByAlphabets(filterByGender(findUser, sortingRules), sortingRules)
+      );
+    } else {
+      displayAllUsers(filterByGender(findUser, sortingRules));
+    }
+  } else if (
     sortingRules.ageByIncreasingIsChecked ||
     sortingRules.ageByDescendingIsChecked
   ) {
     displayAllUsers(
-      sortByAge(
-        filterfilterByGenderIsChoosed(copyOfAllUsers, sortingRules),
-        sortingRules
-      )
+      sortByAge(filterByGender(copyOfAllUsers, sortingRules), sortingRules)
     );
   } else if (
     sortingRules.nameByIncreasingIsChecked ||
@@ -121,22 +144,16 @@ const initializeUsers = (target) => {
   ) {
     displayAllUsers(
       sortByAlphabets(
-        filterfilterByGenderIsChoosed(copyOfAllUsers, sortingRules),
+        filterByGender(copyOfAllUsers, sortingRules),
         sortingRules
       )
     );
-  } else if (
-    sortingRules.filterByGenderIsChoosed === "all" ||
-    sortingRules.filterByGenderIsChoosed === "male" ||
-    sortingRules.filterByGenderIsChoosed === "female"
-  ) {
-    displayAllUsers(
-      filterfilterByGenderIsChoosed(copyOfAllUsers, sortingRules)
-    );
+  } else if (sortingRules.filterByGenderIsChoosed) {
+    displayAllUsers(filterByGender(copyOfAllUsers, sortingRules));
   }
 };
 
-const filterfilterByGenderIsChoosed = (arrayOfUsers, sortingRules) => {
+const filterByGender = (arrayOfUsers, sortingRules) => {
   if (
     sortingRules.filterByGenderIsChoosed === "male" ||
     sortingRules.filterByGenderIsChoosed === "female"
@@ -152,40 +169,36 @@ const filterfilterByGenderIsChoosed = (arrayOfUsers, sortingRules) => {
 
 const sortByAge = (arrayOfUsers, sortingRules) => {
   if (sortingRules.ageByIncreasingIsChecked) {
-    arrayOfUsers.sort((a, b) => a.dob.age - b.dob.age);
+    arrayOfUsers.sort(
+      (firstUser, secondUser) => firstUser.dob.age - secondUser.dob.age
+    );
   } else {
-    arrayOfUsers.sort((a, b) => b.dob.age - a.dob.age);
+    arrayOfUsers.sort(
+      (firstUser, secondUser) => secondUser.dob.age - firstUser.dob.age
+    );
   }
   return arrayOfUsers;
 };
 
 const sortByAlphabets = (arrayOfUsers, sortingRules) => {
   if (sortingRules.nameByIncreasingIsChecked) {
-    arrayOfUsers.sort((a, b) => (a.name.first > b.name.first ? 1 : -1));
+    arrayOfUsers.sort((firstUser, secondUser) =>
+      firstUser.name.first > secondUser.name.first ? 1 : -1
+    );
   } else {
-    arrayOfUsers.sort((a, b) => (a.name.first > b.name.first ? -1 : 1));
+    arrayOfUsers.sort((firstUser, secondUser) =>
+      firstUser.name.first > secondUser.name.first ? -1 : 1
+    );
   }
   return arrayOfUsers;
 };
 
 allFilters.addEventListener("input", function (e) {
   const target = e.target;
-
-  if (searchInput.value !== "") {
-    const findUser = copyOfAllUsers.filter(
-      (user) =>
-        user.name.first
-          .toLowerCase()
-          .includes(searchInput.value.toLowerCase()) ||
-        user.name.last.toLowerCase().includes(searchInput.value.toLowerCase())
-    );
-    displayAllUsers(findUser);
-  } else {
-    initializeUsers(target);
-  }
+  dispalySortedUsers(target);
 });
 
-resetBtn.addEventListener("click", function () {
+resetButton.addEventListener("click", function () {
   displayAllUsers(allUsers);
   sortingRules = {
     filterByGenderIsChoosed: "all",
