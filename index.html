@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Friends App</title>
   </head>
   <body>
@@ -12,44 +12,42 @@
       <header class="header">
         <h1 class="header__name">Friends app</h1>
         <div class="menu__burger">
-          <img src="img/filter.png" alt="" class="burger_img" />
+          <img src="img/filter.png" alt="" class="burger_img">
         </div>
       </header>
       <main class="main">
-        <section class="main__filters">
+        <div class="main__filters">
           <div class="filters">
             <form class="filter_form">
               <div class="search filter">
                 <fieldset class="fieldset_search fieldset">
                   <legend class="fieldset_name">Search:</legend>
-                  <label id="label_search" class="label_search"
+                  <label class="label_search"
                     ><input
                       type="search"
-                      id="input_search"
                       class="input_search"
                       name="search"
                       autocomplete="off"
-                      placeholder="Who are we looking for?"
-                  /></label>
+                      placeholder="Who are we looking for?"></label>
                 </fieldset>
               </div>
               <div class="filter_gender filter">
                 <fieldset class="fieldset_filter fieldset">
                   <legend class="fieldset_name">Choose gender:</legend>
-                  <label id="label_age" class="label_filter">
+                  <label class="label_filter">
                     <input
                       type="radio"
                       name="gender"
                       value="all"
-                      checked /><span>All</span><span></span
+                      checked><span>All</span><span></span
                   ></label>
-                  <label id="label_age" class="label_filter"
-                    ><input type="radio" name="gender" value="male" /><span
+                  <label class="label_filter"
+                    ><input type="radio" name="gender" value="male"><span
                       >Male</span
                     ><span></span
                   ></label>
-                  <label id="label_age" class="label_filter"
-                    ><input type="radio" name="gender" value="female" /><span
+                  <label class="label_filter"
+                    ><input type="radio" name="gender" value="female"><span
                       >Female</span
                     ><span></span
                   ></label>
@@ -58,33 +56,33 @@
               <div class="filter_alphabet filter">
                 <fieldset class="fieldset_sort fieldset">
                   <legend class="fieldset_name">Sort by:</legend>
-                  <label id="label_alphabet" class="label_sort">
+                  <label class="label_sort">
                     <input
                       type="radio"
                       name="sort"
                       value="A-z"
-                      class="radio" /><span>A-z</span><span></span
+                      class="radio"><span>A-z</span><span></span
                   ></label>
-                  <label id="label_alphabet" class="label_sort"
+                  <label class="label_sort"
                     ><input
                       type="radio"
                       name="sort"
                       value="Z-a"
-                      class="radio" /><span>Z-a</span><span></span
+                      class="radio"><span>Z-a</span><span></span
                   ></label>
-                  <label id="label_age" class="label_sort">
+                  <label class="label_sort">
                     <input
                       type="radio"
                       name="sort"
                       value="0-9"
-                      class="radio" /><span>0-9</span><span></span
+                      class="radio"><span>0-9</span><span></span
                   ></label>
-                  <label id="label_age" class="label_sort"
+                  <label class="label_sort"
                     ><input
                       type="radio"
                       name="sort"
                       value="9-0"
-                      class="radio" /><span>9-0</span><span></span
+                      class="radio"><span>9-0</span><span></span
                   ></label>
                 </fieldset>
               </div>
@@ -94,10 +92,10 @@
               <button class="button close hidden">Close filters</button>
             </div>
           </div>
-        </section>
-        <section class="main__content">
+        </div>
+        <div class="main__content">
           <ul class="users"></ul>
-        </section>
+        </div>
       </main>
       <footer class="footer">
         <a href="https://github.com/chernetskyi8704" class="footer_link"
