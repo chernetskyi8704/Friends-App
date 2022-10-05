@@ -272,11 +272,15 @@ textarea,
   font-size: 16px;
   height: 40px;
   width: 100px;
-  background-color: rgb(157, 173, 177);
+  background-color: white;
   border: 2px solid rgb(103, 114, 116);
   border-radius: 10%;
   margin-top: 12px;
-  color: white;
+  color: rgb(103, 114, 116);
+}
+
+.button:hover {
+  background-color: rgb(157, 173, 177);
 }
 
 .close {
