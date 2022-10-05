@@ -10,45 +10,29 @@
   <body>
     <div class="wrapper">
       <header class="header">
-        <nav class="header__menu">
-          <ul class="header__list">
-            <li class="header__list_item">
-              <a
-                href="https://github.com/chernetskyi8704"
-                class="header__link"
-                target="_blank"
-              >
-                <img class="item_img-user" src="img/user.jpg" alt=""
-              /></a>
-            </li>
-            <li class="header__list_item">
-              <a href="" class="header__link">
-                <img class="item_img-nav" src="img/friends.png" alt="" /> </a
-              ><span class="likes_counter counter">+17</span>
-            </li>
-
-            <li class="header__list_item">
-              <a href="" class="header__link">
-                <img class="item_img-nav" src="img/love.png" alt="" /> </a
-              ><span class="likes_counter counter">+7</span>
-            </li>
-            <li class="header__list_item">
-              <a href="" class="header__link">
-                <img class="item_img-nav" src="img/email.png" alt="" /></a
-              ><span class="messages_counter counter">+7</span>
-            </li>
-            <li class="header__list_item">
-              <a href="" class="header__link">
-                <img class="item_img-nav" src="img/log-out.png" alt=""
-              /></a>
-            </li>
-          </ul>
-        </nav>
+        <h1 class="header__name">Friends app</h1>
+        <div class="menu__burger">
+          <img src="img/filter.png" alt="" class="burger_img" />
+        </div>
       </header>
       <main class="main">
         <section class="main__filters">
           <div class="filters">
             <form class="filter_form">
+              <div class="search filter">
+                <fieldset class="fieldset_search fieldset">
+                  <legend class="fieldset_name">Search:</legend>
+                  <label id="label_search" class="label_search"
+                    ><input
+                      type="search"
+                      id="input_search"
+                      class="input_search"
+                      name="search"
+                      autocomplete="off"
+                      placeholder="Who are we looking for?"
+                  /></label>
+                </fieldset>
+              </div>
               <div class="filter_gender filter">
                 <fieldset class="fieldset_filter fieldset">
                   <legend class="fieldset_name">Choose gender:</legend>
@@ -69,19 +53,6 @@
                       >Female</span
                     ><span></span
                   ></label>
-                </fieldset>
-              </div>
-              <div class="search filter">
-                <fieldset class="fieldset_search fieldset">
-                  <legend class="fieldset_name">Search:</legend>
-                  <label id="label_search" class="label_search"
-                    ><input
-                      type="search"
-                      id="input_search"
-                      class="input_search"
-                      name="search"
-                      placeholder="Who are we looking for?"
-                  /></label>
                 </fieldset>
               </div>
               <div class="filter_alphabet filter">
@@ -117,8 +88,11 @@
                   ></label>
                 </fieldset>
               </div>
-              <button type="reset" class="resetBtn">Reset</button>
             </form>
+            <div class="filter__buttons">
+              <button class="button reset">Reset</button>
+              <button class="button close hidden">Close filters</button>
+            </div>
           </div>
         </section>
         <section class="main__content">
@@ -127,11 +101,9 @@
       </main>
       <footer class="footer">
         <a href="https://github.com/chernetskyi8704" class="footer_link"
-          >Dmytro Chernetskyi 2022©</a
+          >© Dmytro Chernetskyi 2022</a
         >
-        <a
-          href="https://www.flaticon.com/free-icons/friends"
-          title="friends icons"
+        <a href="https://www.flaticon.com/free-icons/friends"
           >Friends icons created by Freepik - Flaticon</a
         >
       </footer>

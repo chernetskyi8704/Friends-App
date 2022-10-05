@@ -1,6 +1,9 @@
+const filterBody = document.querySelector(".main__filters");
+const burgerImage = document.querySelector(".burger_img");
 const listOfUsers = document.querySelector(".users");
 const allFilters = document.querySelector(".main__filters");
-const resetButton = document.querySelector(".resetBtn");
+const filterButtons = document.querySelector(".filter__buttons");
+const closeBurgerButton = document.querySelector(".close");
 const searchInput = document.querySelector('input[name="search"]');
 const usersURL =
   "https://randomuser.me/api/?results=16&nat=ua&inc=gender,name,location,picture,dob&seed=1 noinfo";
@@ -24,7 +27,7 @@ const displayAllUsers = (usersArray) => {
   listOfUsers.innerHTML = "";
   usersArray.map((user) => {
     const html = ` <li class="user">
-      <div class="user_photo">
+      <div class="user_photo-wrapper">
         <img src=${user.picture.large} alt="" class="user_img" />
       </div>
       <div class="user_description">
@@ -198,14 +201,29 @@ allFilters.addEventListener("input", function (e) {
   dispalySortedUsers(target);
 });
 
-resetButton.addEventListener("click", function () {
-  displayAllUsers(allUsers);
-  sortingRules = {
-    filterByGenderIsChoosed: "all",
-    ageByIncreasingIsChecked: false,
-    ageByDescendingIsChecked: false,
-    nameByIncreasingIsChecked: false,
-    nameByDescendingIsChecked: false,
-  };
-  searchInput.value = "";
+filterButtons.addEventListener("click", function (e) {
+  const target = e.target;
+  if (target.classList.contains("reset")) {
+    displayAllUsers(allUsers);
+    sortingRules = {
+      filterByGenderIsChoosed: "all",
+      ageByIncreasingIsChecked: false,
+      ageByDescendingIsChecked: false,
+      nameByIncreasingIsChecked: false,
+      nameByDescendingIsChecked: false,
+    };
+    searchInput.value = "";
+  } else if (target.classList.contains("close")) {
+    document.body.classList.remove("_lock");
+    burgerImage.classList.remove("_active");
+    filterBody.classList.remove("_active");
+    closeBurgerButton.classList.add("hidden");
+  }
+});
+
+burgerImage.addEventListener("click", (e) => {
+  document.body.classList.add("_lock");
+  burgerImage.classList.add("_active");
+  filterBody.classList.add("_active");
+  closeBurgerButton.classList.remove("hidden");
 });
