@@ -1,0 +1,37 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+  *,
+  *:before,
+  *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  *:focus,
+  *:active {
+    outline: none;
+  }
+  
+  input,
+  button,
+  textarea {
+    font-family: inherit;
+  }
+
+  body {
+    height: 100vh;
+    line-height: 1;
+    user-select: none;
+    color: rgb(103, 114, 116);
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  
+  a {
+    text-decoration: none;
+  }
