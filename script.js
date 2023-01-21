@@ -104,11 +104,7 @@ const defineCurrentFilterSettings = function ({ target: radioButton }) {
 };
 
 const ifUsersNotFound = function () {
-  if(foundUsers.length === 0){
-    noUsersFoundElement.classList.remove("hidden")
-  }else if(copyOfAllUsers){
-    noUsersFoundElement.classList.add("hidden")
-  }
+  currentArrayOfUsers.length === 0?noUsersFoundElement.classList.remove("hidden"): noUsersFoundElement.classList.add("hidden")
 };
 
 const defineCurrentArrayOfUsers = function () {
@@ -121,9 +117,9 @@ const defineCurrentArrayOfUsers = function () {
           .includes(searchInput.value.toLowerCase()) ||
         user.name.last.toLowerCase().includes(searchInput.value.toLowerCase())
     );
-    ifUsersNotFound();
   }
   currentArrayOfUsers = searchInput.value !== "" ? foundUsers : copyOfAllUsers;
+  ifUsersNotFound();
 };
 
 const displaySortedUsers = function ({ target: radioButton }) {
@@ -199,7 +195,7 @@ filterButtons.addEventListener("click", function ({ target: button }) {
   }
 });
 
-burgerImage.addEventListener("click", () => {
+burgerImage.addEventListener("click", function(){
   document.body.classList.toggle("_lock");
   burgerImage.classList.toggle("_active");
   closeBurgerButton.classList.toggle("hidden");
